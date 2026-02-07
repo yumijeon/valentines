@@ -46,7 +46,7 @@ yesBtn.addEventListener('click', () => {
 
 // No button - runs away on proximity
 let isRunning = false;
-const proximityThreshold = 80; // pixels
+const proximityThreshold = 100; // pixels - increased range
 
 function getDistance(x1, y1, x2, y2) {
     return Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2));
@@ -71,14 +71,14 @@ function moveNoButton(cursorX, cursorY) {
         const yesBtnRect = yesBtn.getBoundingClientRect();
         
         // Calculate safe area within card (with padding)
-        const padding = 16;
+        const padding = 20;
         const minX = padding;
-        const minY = padding + 80; // Account for message space
+        const minY = padding + 100; // Account for message space
         const maxX = cardRect.width - noBtn.offsetWidth - padding;
         const maxY = cardRect.height - noBtn.offsetHeight - padding;
         
         // Yes button no-go zone (expanded by margin)
-        const noGoMargin = 20;
+        const noGoMargin = 30;
         const yesNoGoLeft = yesBtnRect.left - cardRect.left - noGoMargin;
         const yesNoGoRight = yesBtnRect.right - cardRect.left + noGoMargin;
         const yesNoGoTop = yesBtnRect.top - cardRect.top - noGoMargin;
@@ -87,7 +87,7 @@ function moveNoButton(cursorX, cursorY) {
         // Try to find a valid position
         let newX, newY;
         let attempts = 0;
-        const maxAttempts = 20;
+        const maxAttempts = 30;
         
         do {
             newX = minX + Math.random() * (maxX - minX);
@@ -106,21 +106,20 @@ function moveNoButton(cursorX, cursorY) {
             
         } while (attempts < maxAttempts);
         
-        // Fallback: if all attempts failed, place in bottom right
+        // Fallback: if all attempts failed, place far from Yes button
         if (attempts >= maxAttempts) {
-            newX = maxX;
+            newX = Math.random() > 0.5 ? minX : maxX;
             newY = maxY;
         }
         
-        // Apply new position
-        noBtn.style.position = 'absolute';
+        // Apply new position relative to card
         noBtn.style.left = `${newX}px`;
         noBtn.style.top = `${newY}px`;
         
         setTimeout(() => {
             isRunning = false;
             noBtn.classList.remove('running');
-        }, 300);
+        }, 150); // Faster response
     }
 }
 
@@ -163,10 +162,11 @@ function restart() {
     // Reset envelope
     envelope.classList.remove('opening');
     
-    // Reset No button position
-    noBtn.style.position = 'absolute';
-    noBtn.style.left = '0';
-    noBtn.style.top = '72px';
+    // Reset No button position and state
+    noBtn.style.position = 'relative';
+    noBtn.style.left = '';
+    noBtn.style.top = '';
+    noBtn.classList.remove('running');
     isRunning = false;
 }
 
