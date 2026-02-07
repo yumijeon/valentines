@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For You 💌</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Floating hearts background -->
+    <div class="hearts-container" id="heartsContainer"></div>
+
+    <!-- Cover Screen: Envelope -->
+    <div class="screen" id="coverScreen">
+        <div class="envelope" id="envelope">
+            <div class="envelope-flap"></div>
+            <div class="envelope-body">
+                <div class="envelope-seal">💕</div>
+            </div>
+            <div class="envelope-paper" id="envelopePaper"></div>
+        </div>
+        <p class="caption">tap to open (i worked hard on this)</p>
+    </div>
+
+    <!-- Card Screen: Message + CTAs -->
+    <div class="screen hidden" id="cardScreen">
+        <div class="card">
+            <div class="card-scallop"></div>
+            <div class="card-content">
+                <p class="message">You have big eyes, small face.<br>I like.<br>Be my valentines.</p>
+                <div class="cta-container">
+                    <button class="cta-yes" id="yesBtn">Yes, of course.</button>
+                    <button class="cta-no" id="noBtn">No</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Result Screen: YES -->
+    <div class="screen hidden" id="resultYesScreen">
+        <div class="result-card">
+            <h2 class="result-title">Correct answer.</h2>
+            <img src="./assets/good_choice.gif" alt="Good choice" class="result-gif">
+            <button class="restart-btn" id="restartYes">Restart</button>
+        </div>
+    </div>
+
+    <!-- Result Screen: NO -->
+    <div class="screen hidden" id="resultNoScreen">
+        <div class="result-card">
+            <h2 class="result-title">Yo, hold my poodle. HOLD MY POODLE!</h2>
+            <img src="./assets/poodle.gif" alt="Poodle" class="result-gif">
+            <button class="restart-btn" id="restartNo">Restart</button>
+        </div>
+    </div>
+
+    <script src="main.js"></script>
+</body>
+</html>
